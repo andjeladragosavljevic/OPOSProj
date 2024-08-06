@@ -1,0 +1,7 @@
+﻿[*.{cs,vb}]
+
+# IDE0060: Remove unused parameter
+dotnet_diagnostic.IDE0060.severity = silent
+
+# CS4014: Because this call is not awaited, execution of the current method continues before the call is completed
+dotnet_diagnostic.CS4014.severity = silent

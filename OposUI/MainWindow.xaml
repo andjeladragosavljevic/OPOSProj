@@ -1,0 +1,129 @@
+﻿<Window x:Class="OposGui.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="MainWindow" Height="750" Width="420">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Border Padding="18">
+            <StackPanel Orientation="Vertical">
+                <Label>Scheduler</Label>
+                <Separator Margin="5 0 12 10" />
+                <StackPanel Orientation="Vertical" Margin="0 5 0 2.5">
+                    <StackPanel Margin="0 0 0 5" Orientation="Horizontal">
+                        <TextBox VerticalAlignment="Center" Name="NumberOfCoresTxt" PreviewTextInput="PreviewTextInput" Width="179">
+                        </TextBox>
+                        <Label Margin="10 0 0 0">
+                            Number of cores
+                        </Label>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox VerticalAlignment="Center" Name="NumOfTasksTxt" Width="179" PreviewTextInput="PreviewTextInput">
+                        </TextBox>
+                        <Label Margin="10 0 0 0">
+                            Number of tasks
+                        </Label>
+                    </StackPanel>
+                    <Button Name="CreateScheduler" HorizontalAlignment="Left" Margin="0 5 0 0" Width="338" Click="CreateScheduler_Click">
+                        Create scheduler
+                    </Button>
+                </StackPanel>
+
+                <Label>Tasks</Label>
+                <Separator Margin="5 0 12 10" />
+                <StackPanel Orientation="Vertical" Margin="0 5 0 2.5">
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Name="CheckBox" Unchecked="CheckBox_Unchecked" Checked="CheckBox_Checked" Margin="0 0 5 5">Priority
+                        </CheckBox>
+                        <CheckBox Name="CheckBoxPreemptive" Unchecked="CheckBoxPreemptive_Unchecked" Checked="CheckBoxPreemptive_Checked" Margin="0 0 5 5">Preemptive
+                        </CheckBox>
+                        <CheckBox Name="CheckBoxResources" Unchecked="CheckBoxResources_Unchecked" Checked="CheckBoxResources_Checked" Margin="0 0 0 5">Resources
+                        </CheckBox>
+                    </StackPanel>
+                    <Button x:Name="SearchResourcesButton" Visibility="Hidden" Width="346" Margin="0 0 0 5" HorizontalAlignment="Left" Click="SearchResourcesButton_Click">Search resources</Button>
+
+                    <StackPanel Margin="0 0 0 5" Orientation="Horizontal">
+                        <TextBox VerticalAlignment="Center" Name="TotalExecutionTimeTxt" Width="179" PreviewTextInput="PreviewTextInput">
+                        </TextBox>
+                        <Label Margin="10 0 0 0">
+                            Total execution time
+                        </Label>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox VerticalAlignment="Center" Name="DeadlineTxt" Width="179" PreviewTextInput="PreviewTextInput">
+                        </TextBox>
+                        <Label Margin="10 0 0 0">
+                            Deadline
+                        </Label>
+                    </StackPanel>
+                    <StackPanel Margin="0 5 0 0" Orientation="Horizontal">
+                        <TextBox VerticalAlignment="Center" Name="MaxDegreeOfParallelismTxt" Width="179" PreviewTextInput="PreviewTextInput">
+                        </TextBox>
+                        <Label Margin="10 0 0 0">
+                            Max degree of parallelism
+                        </Label>
+                    </StackPanel>
+                    <StackPanel Margin="0 5 0 0" Orientation="Horizontal">
+                        <TextBox Visibility="Hidden" VerticalAlignment="Center" Name="PriorityTxt" Width="179" PreviewTextInput="PreviewTextInput">
+                        </TextBox>
+                        <Label Name="Priority" Visibility="Hidden" Margin="10 0 0 0">
+                            Priority
+                        </Label>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="left" Margin="0 5 5 5">
+                        <Button Name="AddTask" Width="338" Click="AddTask_Click" >
+                            Create task
+                        </Button>
+
+                    </StackPanel>
+
+
+                </StackPanel>
+                <Label>Schedul tasks</Label>
+                <Separator Margin="5 0 12 10" />
+                <StackPanel Margin="0 0 0 0" Orientation="Horizontal">
+                    <Button Name="Process" Margin="0 0 5 5" Width="68" Click="Process_Click">
+                        Process
+                    </Button>
+
+
+
+                </StackPanel>
+
+                <Label x:Name="PlaybackStatusLabel"></Label>
+
+                <StackPanel x:Name="ProgressBarsStackPanelTask" Orientation="Vertical" Margin="0 2.5 0 2.5">
+
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0 10 0 5">
+                    <Button x:Name="PlaybackButton1" Content="{Binding}" IsEnabled="True" Width="68" Margin="0 0 2.5 0" Click="PlaybackButton1_Click"></Button>
+                    <Button x:Name="StopPlaybackButton1" Width="68" Margin="2.5 0 0 0" Click="StopPlaybackButton1_Click">Stop</Button>
+                </StackPanel>
+
+
+
+                <Label>Image procsessing</Label>
+                <Separator Margin="5 0 12 10" />
+                <StackPanel Orientation="Vertical" Margin="0 5 0 0">
+                    <Button x:Name="SearchButton" Width="346" Margin="0 0 0 5" HorizontalAlignment="Left" Click="SearchButton_Click">Search images</Button>
+                    <Button x:Name="AddSharpenTask" Width="346" Click="AddSharpenTask_Click" HorizontalAlignment="Left" Content="Create sharpen task" />
+                    <StackPanel Orientation="Horizontal" Margin="0 2.5 0 2.5">
+                        <Button x:Name="SharpImageButton" Width="172" Margin="0 0 2.5 0" Click="SharpImageButton_Click">Process data</Button>
+                        <Button x:Name="SharpImageParallelButton" Width="168" Margin="2.5 0 0 0" Click="SharpImageParallelButton_Click">Process data (Parallel)</Button>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel x:Name="ProgressBarsStackPanel" Orientation="Vertical" Margin="0 2.5 0 2.5">
+
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0 10 0 5">
+                    <Button x:Name="PlaybackButton" Content="{Binding}" IsEnabled="True" Width="68" Margin="0 0 2.5 0" Click="PlaybackButton_Click"></Button>
+                    <Button x:Name="StopPlaybackButton" Width="68" Margin="2.5 0 0 0" Click="StopPlaybackButton_Click">Stop</Button>
+                </StackPanel>
+
+            </StackPanel>
+        </Border>
+    </ScrollViewer>
+
+</Window>
