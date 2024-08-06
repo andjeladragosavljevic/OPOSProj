@@ -1,5 +1,6 @@
 ﻿using DokanNet;
 using OposScheduler;
+using System.Runtime.Versioning;
 using System.Security.AccessControl;
 using System.Text.RegularExpressions;
 using FileAccess = DokanNet.FileAccess;
@@ -9,6 +10,7 @@ namespace OposFS
     /// <summary>
     /// Implemntation of IDokanOperations interface, with image processing using custom task scheduler,
     /// </summary>
+    [SupportedOSPlatform("windows")]
     public class OposFileSystem : IDokanOperations
     {
         private static readonly string _pathName = "input";
@@ -25,8 +27,9 @@ namespace OposFS
                 {
                 }
             }
-            catch (IOException)
+            catch (IOException ex)
             {
+                Console.WriteLine($"Error: {ex.Message}");
                 return false;
             }
 
@@ -63,8 +66,9 @@ namespace OposFS
                             break;
                     }
                 }
-                catch (UnauthorizedAccessException)
+                catch (UnauthorizedAccessException ex)
                 {
+                    Console.WriteLine($"Error: {ex.Message}");
                     return DokanResult.AccessDenied;
                 }
             }
@@ -78,8 +82,9 @@ namespace OposFS
                     pathExists = (Directory.Exists(fileName) || File.Exists(fileName));
                     pathIsDirectory = pathExists && File.GetAttributes(fileName).HasFlag(FileAttributes.Directory);
                 }
-                catch (IOException)
+                catch (IOException ex)
                 {
+                    Console.WriteLine($"Error: {ex.Message}");
                 }
 
                 switch (mode)
@@ -124,8 +129,9 @@ namespace OposFS
                         File.SetAttributes(fileName, attributes);
                     }
                 }
-                catch (UnauthorizedAccessException)
+                catch (UnauthorizedAccessException ex)
                 {
+                    Console.WriteLine($"Error: {ex.Message}");
                     if (info.Context is FileStream fileStream)
                     {
 
@@ -134,13 +140,14 @@ namespace OposFS
                     }
                     return DokanResult.AccessDenied;
                 }
-                catch (DirectoryNotFoundException)
+                catch (DirectoryNotFoundException ex)
                 {
+                    Console.WriteLine($"Error: {ex.Message}");
                     return DokanResult.PathNotFound;
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-
+                    Console.WriteLine($"Error: {ex.Message}");
                 }
             }
             return result;
@@ -166,14 +173,8 @@ namespace OposFS
                     {
                         File.Delete(fileName);
                     }
-                    catch (UnauthorizedAccessException)
-                    {
-
-                    }
-                    catch (Exception)
-                    {
-
-                    }
+                    catch (UnauthorizedAccessException ex) { Console.WriteLine($"Error: {ex.Message}"); }
+                    catch (Exception ex) { Console.WriteLine($"Error: {ex.Message}"); }
                 }
             }
 
@@ -200,9 +201,7 @@ namespace OposFS
                         stream.Position = offset;
                         bytesRead = stream.Read(buffer, 0, buffer.Length);
                     }
-                    catch (IOException)
-                    {
-                    }
+                    catch (IOException ex) { Console.WriteLine($"Error: {ex.Message}"); }
                 }
             }
             else
@@ -347,10 +346,7 @@ namespace OposFS
                 ((FileStream)(info.Context)).SetLength(length);
                 return DokanResult.Success;
             }
-            catch (IOException)
-            {
-                return DokanResult.DiskFull;
-            }
+            catch (IOException ex) { Console.WriteLine($"Error: {ex.Message}"); return DokanResult.DiskFull; }
         }
 
         public NtStatus LockFile(string fileName, long offset, long length, IDokanFileInfo info)
@@ -399,9 +395,9 @@ namespace OposFS
 
                 return DokanResult.Success;
             }
-            catch (UnauthorizedAccessException)
+            catch (UnauthorizedAccessException ex)
             {
-
+                Console.WriteLine($"Error: {ex.Message}");
                 security = null;
                 return DokanResult.AccessDenied;
             }
@@ -425,10 +421,7 @@ namespace OposFS
 
                 return DokanResult.Success;
             }
-            catch (UnauthorizedAccessException)
-            {
-                return DokanResult.AccessDenied;
-            }
+            catch (UnauthorizedAccessException ex) { Console.WriteLine($"Error: {ex.Message}"); return DokanResult.AccessDenied; }
         }
 
         public NtStatus FindFilesWithPattern(string fileName, string searchPattern, out IList<FileInformation>? files,
@@ -451,10 +444,7 @@ namespace OposFS
                        FileName = finfo.Name
                    }).ToArray();
             }
-            catch (UnauthorizedAccessException)
-            {
-                files = null;
-            }
+            catch (UnauthorizedAccessException ex) { Console.WriteLine($"Error: {ex.Message}"); files = null; }
 
 
             return DokanResult.Success;

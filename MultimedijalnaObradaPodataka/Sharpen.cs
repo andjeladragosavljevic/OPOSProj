@@ -32,8 +32,6 @@ namespace OposMMOP
         /// </summary>
         public static bool ParallelSharp { get; set; }
 
-        private readonly string? _fileName;
-
         public static ManualResetEvent ManualResetEvent = new ManualResetEvent(false);
         public CancellationTokenSource? CancellationTokenSource { get; set; }
         public CancellationToken CancellationToken { get; set; }
