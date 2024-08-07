@@ -537,7 +537,8 @@ namespace OposGui
                     sharpen.CancellationToken = cancellationToken.Token;
                     if (_images != null)
                     {
-                        MyTask myTask = new MyTask(delegate { sharpen.MultipleImagesSharpening(_images, factory); }, Int32.Parse(PriorityTxt.Text), Int32.Parse(TotalExecutionTimeTxt.Text), Int32.Parse(DeadlineTxt.Text), cancellationToken, resource);
+                        object? resources = resource ?? "default_resource";
+                        MyTask myTask = new MyTask(delegate { sharpen.MultipleImagesSharpening(_images, factory); }, Int32.Parse(PriorityTxt.Text), Int32.Parse(TotalExecutionTimeTxt.Text), Int32.Parse(DeadlineTxt.Text), cancellationToken, resources);
                         sharpenTasksForExecution.Add(myTask);
                         allSharpenTasks.Add(myTask);
                     }
