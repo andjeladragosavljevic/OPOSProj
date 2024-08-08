@@ -20,6 +20,9 @@
 - **WPF (Windows Presentation Foundation):** For creating the graphical user interface.
 - **XUnit:** For unit testing.
 
+### Screenshot
+
+![MainWindow Screenshot](https://github.com/andjeladragosavljevic/OPOSProj/blob/master/OPOSGui.png?raw=true)
 
 ### Usage
 
