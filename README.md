@@ -30,7 +30,7 @@
 
 1. **Clone the Repository**
     ```sh
-    git clone https://github.com/yourusername/OPOSProj.git
+    git clone https://github.com/andjeladragosavljevic/OPOSProj
     cd OPOSProj
     ```
 
