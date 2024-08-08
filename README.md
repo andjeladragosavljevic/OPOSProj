@@ -14,7 +14,7 @@
 
 ## Tech Stack
 
-- **.NET 5:** The core framework for building and running the application.
+- **.NET 6:** The core framework for building and running the application.
 - **C#:** The programming language used for the development.
 - **Dokan:** A library for creating custom file systems in Windows.
 - **WPF (Windows Presentation Foundation):** For creating the graphical user interface.
@@ -32,7 +32,7 @@
     ```
 
 2. **Install Dependencies**
-    Ensure you have .NET 5 SDK installed. Restore NuGet packages using:
+    Ensure you have .NET 6 SDK installed. Restore NuGet packages using:
     ```sh
     dotnet restore
     ```
